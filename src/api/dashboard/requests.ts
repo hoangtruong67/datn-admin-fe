@@ -35,7 +35,6 @@ export const getTopProducts = async (params: Partial<TopProductsParams> = {}): P
   });
   return data?.data || [];
 };
-
 export const getTopCustomers = async (params: Partial<TopCustomersParams> = {}): Promise<TopCustomer[]> => {
   const { data } = await client({
     url: '/api/admin/dashboard/top-customers',
