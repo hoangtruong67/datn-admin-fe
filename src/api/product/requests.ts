@@ -37,7 +37,7 @@ export const updateProduct = async ({
 }): Promise<IProduct> => {
   const { data } = await client({
     url: `/api/admin/products/${id}`,
-    method: 'DELETE',
+    method: 'PATCH',
     data: formData,
   });
   return data?.data;
