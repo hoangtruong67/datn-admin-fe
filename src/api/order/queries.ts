@@ -8,7 +8,7 @@ export const useOrdersQuery = createQuery<IOrderResponse, Partial<IOrderQuery>>(
 });
 
 export const useOrderByIdQuery = createQuery<IOrder, string>({
-  queryKey: ['order'],
+  queryKey: ['orders'],
   fetcher: (id) => getOrderById(id),
 });
 
@@ -21,7 +21,7 @@ export const useUpdateShippingStatusMutation = createMutation<
   IOrder,
   { id: string; status: string; userNote: string; shipperOfProof: string[] }
 >({
-  mutationFn: ({ id, shipperOfProof, userNote }) => updateShippingStatus({ id, status, userNote, shipperOfProof }),
+  mutationFn: ({ id, status, shipperOfProof, userNote }) => updateShippingStatus({ id, status, userNote, shipperOfProof }),
 });
 
 export const useUpdatePaymentStatusMutation = createMutation<IOrder, { id: string; status: string }>({
