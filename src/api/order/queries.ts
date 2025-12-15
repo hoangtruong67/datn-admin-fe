@@ -8,7 +8,7 @@ export const useOrdersQuery = createQuery<IOrderResponse, Partial<IOrderQuery>>(
 });
 
 export const useOrderByIdQuery = createQuery<IOrder, string>({
-  queryKey: ['order'],
+  queryKey: ['orders'],
   fetcher: (id) => getOrderById(id),
 });
 
