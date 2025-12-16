@@ -27,18 +27,18 @@ interface CartState {
 export const useCartStore = create<CartState>((set, get) => ({
   items: [],
 
+  // ➕ Thêm sản phẩm (nếu có rồi thì +1)
   addItem: (item) =>
     set((state) => {
-      const existed = state.items.find((i) => i.id === item.id);
+      const index = state.items.findIndex((i) => i.id === item.id);
 
-      if (existed) {
-        return {
-          items: state.items.map((i) =>
-            i.id === item.id
-              ? { ...i, quantity: i.quantity + 1 }
-              : i
-          ),
+      if (index !== -1) {
+        const newItems = [...state.items];
+        newItems[index] = {
+          ...newItems[index],
+          quantity: newItems[index].quantity + 1,
         };
+        return { items: newItems };
       }
 
       return {
@@ -46,40 +46,48 @@ export const useCartStore = create<CartState>((set, get) => ({
       };
     }),
 
+  // 🔼🔽 Tăng / giảm số lượng
   updateQuantity: (id, delta) =>
     set((state) => ({
       items: state.items
         .map((i) =>
           i.id === id
-            ? { ...i, quantity: i.quantity + delta }
+            ? { ...i, quantity: Math.max(i.quantity + delta, 0) }
             : i
         )
         .filter((i) => i.quantity > 0),
     })),
 
+  // ✏️ Set số lượng trực tiếp (input)
   setQuantity: (id, quantity) =>
     set((state) => ({
       items:
         quantity <= 0
           ? state.items.filter((i) => i.id !== id)
           : state.items.map((i) =>
-              i.id === id ? { ...i, quantity } : i
+              i.id === id
+                ? { ...i, quantity: Math.floor(quantity) }
+                : i
             ),
     })),
 
+  // ❌ Xoá sản phẩm
   removeItem: (id) =>
     set((state) => ({
       items: state.items.filter((i) => i.id !== id),
     })),
 
+  // 🧹 Xoá toàn bộ giỏ
   clearCart: () => set({ items: [] }),
 
+  // 🔢 Tổng số lượng
   totalQuantity: () =>
-    get().items.reduce((total, item) => total + item.quantity, 0),
+    get().items.reduce((sum, item) => sum + item.quantity, 0),
 
+  // 💰 Tổng tiền
   totalPrice: () =>
     get().items.reduce(
-      (total, item) => total + item.price * item.quantity,
+      (sum, item) => sum + item.price * item.quantity,
       0
     ),
 }));
