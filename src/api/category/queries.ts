@@ -4,7 +4,7 @@ import type { ICategoryResponse, ICategory, ICategoryQuery } from './types';
 import type { CategorySchema } from '@/modules/CategoryManagementPage/libs/validators';
 
 export const useCategoriesQuery = createQuery<ICategoryResponse, Partial<ICategoryQuery>>({
-  queryKey: ['admin/categorie'],
+  queryKey: ['admin/categories'],
   fetcher: (params) => getCategories(params),
 });
 export const useCategoryByIdQuery = createQuery<ICategory, string>({
