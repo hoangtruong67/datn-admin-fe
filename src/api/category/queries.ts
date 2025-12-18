@@ -8,7 +8,7 @@ export const useCategoriesQuery = createQuery<ICategoryResponse, Partial<ICatego
   fetcher: (params) => getCategories(params),
 });
 export const useCategoryByIdQuery = createQuery<ICategory, string>({
-  queryKey: ['category'],
+  queryKey: ['categorys'],
   fetcher: (id) => getCategoryById(id),
 });
 // Mutations
