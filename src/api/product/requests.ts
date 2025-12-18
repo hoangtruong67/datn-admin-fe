@@ -21,7 +21,7 @@ export const getProductById = async (id: string): Promise<IProduct> => {
 
 export const createProduct = async (formData: ProductSchema): Promise<IProduct> => {
   const { data } = await client({
-    url: '/api/admin/product',
+    url: '/api/admin/products',
     method: 'POST',
     data: formData,
   });
