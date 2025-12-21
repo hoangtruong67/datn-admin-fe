@@ -27,7 +27,7 @@ interface CartState {
 export const useCartStore = create<CartState>((set, get) => ({
   items: [],
 
-  // ➕ Thêm sản phẩm (có rồi thì +1)
+  // ➕ Thêm sản phẩm (đã có thì +1)
   addItem: (item) =>
     set((state) => {
       const existed = state.items.find((i) => i.id === item.id);
@@ -59,7 +59,7 @@ export const useCartStore = create<CartState>((set, get) => ({
         .filter((i) => i.quantity > 0),
     })),
 
-  // ✏️ Set trực tiếp (input)
+  // ✏️ Set số lượng trực tiếp
   setQuantity: (id, quantity) =>
     set((state) => {
       if (quantity <= 0) {
